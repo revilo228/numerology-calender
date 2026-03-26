@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>The Entrepreneur's Numerology Playbook 2026 — Stop Guessing When to Move</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="text/javascript">
@@ -15,7 +15,6 @@
 <style>
 /* ============================================
    DESIGN SYSTEM — DARK LUXURY / EDITORIAL
-   Matching existing Rafi's World aesthetic
    ============================================ */
 :root {
   --bg: #0C0A09;
@@ -47,6 +46,7 @@ body {
   line-height: 1.7;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -86,6 +86,20 @@ body {
 em.gold { color: var(--amber); font-style: italic; }
 strong.white { color: var(--text); }
 
+/* Mid-page CTA — shown between sections on mobile */
+.mid-cta {
+  display: none;
+  text-align: center;
+  padding: 24px 16px;
+  background: var(--surface);
+  border-top: 1px solid var(--surface2);
+  border-bottom: 1px solid var(--surface2);
+}
+.mid-cta .btn-primary {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
 /* ============================================
    STICKY NAV
    ============================================ */
@@ -122,7 +136,71 @@ strong.white { color: var(--text); }
 .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--amber-glow); }
 
 /* ============================================
-   URGENCY BANNER — Maciek: 48hr urgency code
+   STICKY MOBILE CTA BAR — Always visible on phone
+   ============================================ */
+.sticky-mobile-cta {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 999;
+  background: rgba(12, 10, 9, 0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--amber);
+  padding: 12px 16px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+}
+.sticky-mobile-cta .sticky-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sticky-mobile-cta .sticky-price {
+  flex-shrink: 0;
+}
+.sticky-mobile-cta .sticky-price .now {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--amber);
+}
+.sticky-mobile-cta .sticky-price .orig {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  margin-left: 4px;
+}
+.sticky-mobile-cta .btn-sticky {
+  flex: 1;
+  background: var(--amber);
+  color: var(--bg);
+  padding: 14px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.sticky-mobile-cta .btn-sticky::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shimmer 3s infinite;
+}
+
+/* ============================================
+   URGENCY BANNER
    ============================================ */
 .urgency-bar {
   background: linear-gradient(90deg, var(--amber-dim), rgba(245,158,11,0.15));
@@ -146,7 +224,7 @@ strong.white { color: var(--text); }
 }
 
 /* ============================================
-   HERO / ATF — Maciek: VSL left, form right
+   HERO / ATF
    ============================================ */
 .hero {
   padding: 60px 0 80px;
@@ -163,7 +241,6 @@ strong.white { color: var(--text); }
   pointer-events: none;
 }
 
-/* ICP Callout — Maciek: eyebrow hook calling out dream ICP */
 .icp-callout {
   text-align: center;
   margin-bottom: 12px;
@@ -204,7 +281,7 @@ strong.white { color: var(--text); }
   line-height: 1.6;
 }
 
-/* ATF Grid — Maciek: VSL + Order Form */
+/* ATF Grid */
 .atf-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -212,9 +289,6 @@ strong.white { color: var(--text); }
   align-items: start;
   max-width: 1000px;
   margin: 0 auto;
-}
-@media (max-width: 900px) {
-  .atf-grid { grid-template-columns: 1fr; }
 }
 
 /* VSL Wrapper */
@@ -226,7 +300,7 @@ strong.white { color: var(--text); }
   position: relative;
 }
 
-/* Product Preview — Calendar mockup */
+/* Product Preview */
 .product-preview {
   position: relative;
   padding: 48px 32px;
@@ -273,7 +347,7 @@ strong.white { color: var(--text); }
 }
 .product-preview .preview-feat span { color: var(--amber); margin-right: 4px; }
 
-/* Sample Entry Preview */
+/* Sample Entry */
 .sample-entry {
   background: var(--bg);
   border: 1px solid var(--surface2);
@@ -319,8 +393,7 @@ strong.white { color: var(--text); }
 .sample-entry .sample-blur::after {
   content: '365 more entries inside...';
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   font-size: 11px;
   font-weight: 700;
@@ -331,7 +404,7 @@ strong.white { color: var(--text); }
   white-space: nowrap;
 }
 
-/* CTA Panel / Order Form — Maciek: 2-step order form concept */
+/* CTA Panel */
 .cta-panel {
   background: var(--surface);
   border: 1px solid var(--surface2);
@@ -372,7 +445,7 @@ strong.white { color: var(--text); }
   margin-bottom: 20px;
 }
 
-/* NESB Badges — Maciek: New Easy Safe Big */
+/* NESB Badges */
 .nesb-badges {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -414,13 +487,14 @@ strong.white { color: var(--text); }
   flex-shrink: 0;
 }
 
-/* Order Bump — Maciek: order bump as missing piece */
+/* Order Bump */
 .order-bump {
   background: rgba(34, 211, 238, 0.06);
   border: 2px dashed var(--cyan);
   border-radius: 10px;
   padding: 16px;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 .order-bump-header {
   display: flex;
@@ -429,10 +503,11 @@ strong.white { color: var(--text); }
   margin-bottom: 10px;
 }
 .order-bump-check {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
   border: 2px solid var(--cyan);
-  border-radius: 4px;
+  border-radius: 6px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -446,7 +521,7 @@ strong.white { color: var(--text); }
 .order-bump-check.checked::after {
   content: '✓';
   color: var(--bg);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
 }
 .order-bump-header .bump-label {
@@ -511,6 +586,25 @@ strong.white { color: var(--text); }
   100% { left: 100%; }
 }
 
+.btn-secondary-inline {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 14px;
+  margin-top: 10px;
+  color: var(--amber);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--surface3);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+.btn-secondary-inline:hover {
+  border-color: var(--amber);
+  background: rgba(245,158,11,0.06);
+}
+
 .guarantee-micro {
   display: flex;
   align-items: center;
@@ -522,8 +616,7 @@ strong.white { color: var(--text); }
 .guarantee-micro span { color: var(--emerald); }
 
 /* ============================================
-   COPY HINGE — Maciek: beneath first CTA
-   Social proof + overcome deep limitations
+   COPY HINGE
    ============================================ */
 .copy-hinge {
   padding: 48px 0;
@@ -565,7 +658,7 @@ strong.white { color: var(--text); }
 }
 
 /* ============================================
-   GAP SECTION — David: Gap storytelling
+   GAP SECTION
    ============================================ */
 .gap-section { padding: 100px 0; }
 .gap-content {
@@ -609,7 +702,7 @@ strong.white { color: var(--text); }
 }
 
 /* ============================================
-   WHAT'S INSIDE — Product breakdown
+   WHAT'S INSIDE
    ============================================ */
 .inside-section { padding: 100px 0; }
 .inside-grid {
@@ -618,8 +711,6 @@ strong.white { color: var(--text); }
   gap: 24px;
   margin-top: 48px;
 }
-@media (max-width: 768px) { .inside-grid { grid-template-columns: 1fr; } }
-
 .inside-card {
   background: var(--surface);
   border: 1px solid var(--surface2);
@@ -665,7 +756,7 @@ strong.white { color: var(--text); }
 }
 
 /* ============================================
-   FAILED SOLUTIONS — David: Avatar graveyard
+   FAILED SOLUTIONS
    ============================================ */
 .failed-section {
   padding: 80px 0;
@@ -708,7 +799,7 @@ strong.white { color: var(--text); }
 }
 
 /* ============================================
-   BRIDGE — The Calendar System
+   BRIDGE — How It Works
    ============================================ */
 .bridge-section { padding: 100px 0; }
 .bridge-intro {
@@ -728,15 +819,12 @@ strong.white { color: var(--text); }
   line-height: 1.7;
 }
 
-/* How It Works Steps */
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 48px;
 }
-@media (max-width: 768px) { .steps-grid { grid-template-columns: 1fr; } }
-
 .step-card {
   background: var(--surface);
   border: 1px solid var(--surface2);
@@ -746,8 +834,7 @@ strong.white { color: var(--text); }
   position: relative;
 }
 .step-num {
-  width: 40px;
-  height: 40px;
+  width: 40px; height: 40px;
   background: var(--amber);
   color: var(--bg);
   border-radius: 50%;
@@ -811,7 +898,7 @@ strong.white { color: var(--text); }
 }
 
 /* ============================================
-   ORIGIN / RELUCTANT HERO — David: story selling
+   ORIGIN STORY
    ============================================ */
 .origin-section {
   padding: 80px 0;
@@ -827,8 +914,6 @@ strong.white { color: var(--text); }
   max-width: 900px;
   margin: 0 auto;
 }
-@media (max-width: 768px) { .origin-grid { grid-template-columns: 1fr; } }
-
 .origin-photo {
   width: 100%;
   aspect-ratio: 3/4;
@@ -836,11 +921,8 @@ strong.white { color: var(--text); }
   overflow: hidden;
   border: 1px solid var(--surface3);
 }
-.origin-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.origin-photo img { width: 100%; height: 100%; object-fit: cover; }
+
 .origin-text h2 {
   font-family: 'Instrument Serif', serif;
   font-size: 32px;
@@ -865,11 +947,9 @@ strong.white { color: var(--text); }
 }
 
 /* ============================================
-   TRANSFORMATION — Before/After
+   TRANSFORMATION
    ============================================ */
-.transform-section {
-  padding: 80px 0;
-}
+.transform-section { padding: 80px 0; }
 .transform-grid {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -878,11 +958,6 @@ strong.white { color: var(--text); }
   max-width: 900px;
   margin: 40px auto 0;
 }
-@media (max-width: 768px) {
-  .transform-grid { grid-template-columns: 1fr; }
-  .transform-arrow { transform: rotate(90deg) !important; }
-}
-
 .transform-col {
   background: var(--surface);
   border-radius: 12px;
@@ -908,7 +983,6 @@ strong.white { color: var(--text); }
   border-bottom: 1px solid var(--surface2);
 }
 .transform-col li:last-child { border: none; }
-
 .transform-arrow {
   display: flex;
   align-items: center;
@@ -919,7 +993,7 @@ strong.white { color: var(--text); }
 }
 
 /* ============================================
-   SOCIAL PROOF — David: belief system engineering
+   SOCIAL PROOF
    ============================================ */
 .proof-section { padding: 100px 0; }
 .proof-cards {
@@ -937,14 +1011,10 @@ strong.white { color: var(--text); }
   transition: border-color 0.3s;
 }
 .proof-card:hover { border-color: var(--amber); }
-.proof-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+.proof-card img { width: 100%; height: auto; display: block; }
 
 /* ============================================
-   OFFER STACK — Maciek: SLO with upsell seeds
+   OFFER STACK
    ============================================ */
 .offer-section {
   padding: 100px 0;
@@ -972,7 +1042,6 @@ strong.white { color: var(--text); }
   background: radial-gradient(circle, rgba(245,158,11,0.06) 0%, transparent 60%);
   pointer-events: none;
 }
-
 .offer-badge-top {
   display: inline-block;
   background: var(--amber);
@@ -987,7 +1056,6 @@ strong.white { color: var(--text); }
   position: relative;
   z-index: 1;
 }
-
 .offer-box h3 {
   font-family: 'Instrument Serif', serif;
   font-size: 28px;
@@ -1002,7 +1070,6 @@ strong.white { color: var(--text); }
   position: relative;
   z-index: 1;
 }
-
 .offer-stack {
   list-style: none;
   text-align: left;
@@ -1082,7 +1149,7 @@ strong.white { color: var(--text); }
   z-index: 1;
 }
 
-/* Bonus — Maciek: implementation call plants high ticket seeds */
+/* Bonus */
 .bonus-banner {
   margin-top: 24px;
   background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(34,211,238,0.1));
@@ -1146,10 +1213,7 @@ strong.white { color: var(--text); }
    FAQ
    ============================================ */
 .faq-section { padding: 80px 0; }
-.faq-list {
-  max-width: 700px;
-  margin: 40px auto 0;
-}
+.faq-list { max-width: 700px; margin: 40px auto 0; }
 .faq-item { border-bottom: 1px solid var(--surface2); }
 .faq-q {
   width: 100%;
@@ -1165,6 +1229,7 @@ strong.white { color: var(--text); }
   justify-content: space-between;
   align-items: center;
   font-family: 'DM Sans', sans-serif;
+  gap: 12px;
 }
 .faq-q::after {
   content: '+';
@@ -1174,11 +1239,7 @@ strong.white { color: var(--text); }
   transition: transform 0.3s;
 }
 .faq-item.open .faq-q::after { transform: rotate(45deg); }
-.faq-a {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-}
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
 .faq-a-inner {
   padding: 0 0 20px;
   font-size: 15px;
@@ -1247,7 +1308,7 @@ strong.white { color: var(--text); }
   display: flex;
   align-items: center;
   gap: 12px;
-  z-index: 999;
+  z-index: 998;
   opacity: 0;
   transform: translateY(16px);
   visibility: hidden;
@@ -1275,108 +1336,309 @@ strong.white { color: var(--text); }
 .fade-up-d3 { animation-delay: 0.3s; }
 
 /* ============================================
-   MOBILE — 768px and below
+   MOBILE OVERHAUL — 768px and below
+   Primary traffic: TikTok, IG, WhatsApp
+   Optimised for thumb-scrolling, fast CTA,
+   sticky bottom bar, compact vertical rhythm
    ============================================ */
+@media (max-width: 900px) {
+  .atf-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 768px) {
+  /* --- GLOBAL --- */
   .container { padding: 0 16px; }
+
+  /* --- BODY PADDING for sticky bottom CTA --- */
+  body { padding-bottom: 80px; }
+
+  /* --- SHOW STICKY MOBILE CTA --- */
+  .sticky-mobile-cta { display: block; }
+
+  /* --- SHOW MID-PAGE CTAs --- */
+  .mid-cta { display: block; }
+
+  /* --- HIDE DESKTOP NAV CTA (sticky bar replaces it) --- */
+  .nav-cta { display: none; }
+
+  /* --- NAV --- */
   .nav { padding: 10px 16px; }
   .nav-logo { font-size: 17px; }
-  .nav-cta { padding: 7px 16px; font-size: 12px; }
 
-  .urgency-bar { padding: 8px 16px; font-size: 12px; margin-top: 43px; line-height: 1.4; }
+  /* --- URGENCY BAR --- */
+  .urgency-bar {
+    padding: 8px 16px;
+    font-size: 12px;
+    margin-top: 43px;
+    line-height: 1.4;
+  }
 
-  .hero { padding: 28px 0 40px; }
+  /* --- HERO: Tight vertical rhythm, CTA visible fast --- */
+  .hero { padding: 20px 0 32px; }
   .icp-callout { margin-bottom: 8px; }
-  .icp-callout span { font-size: 11px; padding: 5px 14px; letter-spacing: 0.5px; }
-  .hero-headline h1 { font-size: 28px; padding: 0 4px; }
-  .hero-sub { font-size: 15px; margin: 12px auto 24px; padding: 0 4px; }
+  .icp-callout span {
+    font-size: 10px;
+    padding: 5px 12px;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+  .hero-headline h1 {
+    font-size: 26px;
+    padding: 0 4px;
+    line-height: 1.2;
+  }
+  .hero-sub {
+    font-size: 14px;
+    margin: 10px auto 20px;
+    padding: 0 4px;
+    line-height: 1.5;
+  }
 
-  .product-preview { padding: 28px 20px; min-height: 280px; }
-  .product-preview .calendar-icon { font-size: 52px; }
-  .product-preview h3 { font-size: 20px; }
-  .sample-entry { padding: 16px; }
+  /* --- MOBILE ATF: Reorder — CTA panel FIRST, then product preview --- */
+  .atf-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .cta-panel { order: 1; }
+  .vsl-wrapper { order: 2; }
 
-  .cta-panel { position: static; padding: 24px 20px; border-radius: 12px; }
-  .cta-panel h3 { font-size: 20px; }
+  /* --- CTA PANEL on mobile --- */
+  .cta-panel {
+    position: static;
+    padding: 20px 18px;
+    border-radius: 12px;
+  }
+  .cta-panel h3 { font-size: 19px; }
+  .cta-panel .sub { font-size: 13px; margin-bottom: 14px; }
   .cta-panel .price { font-size: 30px; }
+  .cta-panel .price-orig { font-size: 14px; }
+  .cta-panel .price-note { font-size: 11px; margin-bottom: 14px; }
 
-  .btn-primary { padding: 18px; font-size: 15px; border-radius: 10px; min-height: 56px; display: flex; align-items: center; justify-content: center; }
+  /* --- NESB compact --- */
+  .nesb-badges { gap: 6px; }
+  .nesb-badge { padding: 8px 8px; }
+  .nesb-badge .nesb-icon { font-size: 16px; margin-bottom: 2px; }
+  .nesb-badge .nesb-text { font-size: 10px; }
 
-  .copy-hinge { padding: 28px 0; }
-  .proof-stats { gap: 20px; }
-  .proof-stat .num { font-size: 26px; }
-  .proof-stat .label { font-size: 10px; }
-  .proof-logos { font-size: 11px; gap: 8px; letter-spacing: 1px; flex-direction: column; }
+  .cta-checklist li { font-size: 13px; padding: 5px 0; }
 
-  .gap-section { padding: 48px 0; }
-  .gap-content h2 { font-size: 24px; }
-  .gap-content p { font-size: 15px; margin-bottom: 16px; }
-  .gap-content .highlight-pain, .gap-content .highlight-reveal { padding: 14px 16px; font-size: 14px; margin: 20px 0; }
+  /* --- ORDER BUMP: Bigger touch zone --- */
+  .order-bump { padding: 14px; }
+  .order-bump-check { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; }
+  .order-bump-check.checked::after { font-size: 16px; }
+  .order-bump-header .bump-label { font-size: 12px; letter-spacing: 0.5px; }
+  .order-bump p { font-size: 12px; }
+  .order-bump .bump-price { font-size: 13px; }
 
-  .inside-section { padding: 48px 0; }
-  .inside-grid { grid-template-columns: 1fr; gap: 14px; }
-  .inside-card { padding: 24px 20px; }
-  .inside-card .icon { font-size: 30px; }
-  .inside-card h3 { font-size: 19px; }
+  /* --- BUTTONS: Fat thumb targets --- */
+  .btn-primary {
+    padding: 18px;
+    font-size: 15px;
+    border-radius: 10px;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-  .failed-section { padding: 48px 0; }
-  .failed-grid { grid-template-columns: 1fr !important; gap: 12px; }
-  .failed-card { padding: 20px 18px; }
+  .guarantee-micro { font-size: 11px; }
 
-  .bridge-section { padding: 48px 0; }
-  .bridge-intro { margin-bottom: 36px; }
-  .bridge-intro h2 { font-size: 24px; }
-  .steps-grid { grid-template-columns: 1fr; gap: 14px; }
-  .bridge-reveal { padding: 28px 20px; }
-  .bridge-reveal h3 { font-size: 20px; }
+  /* --- PRODUCT PREVIEW: Condensed on mobile (below CTA) --- */
+  .product-preview {
+    padding: 24px 16px;
+    min-height: auto;
+  }
+  .product-preview .calendar-icon { font-size: 48px; margin-bottom: 12px; }
+  .product-preview h3 { font-size: 18px; }
+  .product-preview .edition { font-size: 11px; margin-bottom: 12px; }
+  .product-preview .preview-features { gap: 8px; }
+  .product-preview .preview-feat { padding: 6px 10px; font-size: 11px; }
+  .sample-entry { padding: 14px; margin-top: 16px; }
+  .sample-entry .sample-title { font-size: 16px; }
+  .sample-entry .sample-body { font-size: 12px; }
+  .sample-entry .sample-avoid { font-size: 11px; }
 
-  .origin-section { padding: 48px 0; }
-  .origin-grid { grid-template-columns: 1fr; gap: 24px; }
-  .origin-photo { max-width: 200px; margin: 0 auto; aspect-ratio: 1/1; border-radius: 50%; }
-  .origin-text h2 { font-size: 24px; text-align: center; }
+  /* --- COPY HINGE --- */
+  .copy-hinge { padding: 24px 0; }
+  .proof-stats { gap: 16px; }
+  .proof-stat .num { font-size: 24px; }
+  .proof-stat .label { font-size: 10px; letter-spacing: 0.5px; }
+  .proof-logos {
+    font-size: 11px; gap: 6px; letter-spacing: 1px;
+    flex-direction: column; line-height: 1.4;
+  }
+
+  /* --- GAP --- */
+  .gap-section { padding: 40px 0; }
+  .gap-content h2 { font-size: 22px; margin-bottom: 20px; }
+  .gap-content p { font-size: 15px; margin-bottom: 14px; line-height: 1.7; }
+  .gap-content .highlight-pain,
+  .gap-content .highlight-reveal {
+    padding: 14px 14px;
+    font-size: 14px;
+    margin: 20px 0;
+    line-height: 1.6;
+  }
+
+  /* --- INSIDE --- */
+  .inside-section { padding: 40px 0; }
+  .inside-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 28px; }
+  .inside-card {
+    padding: 20px 18px;
+    border-radius: 12px;
+    text-align: left;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .inside-card .icon { font-size: 28px; margin-bottom: 0; flex-shrink: 0; }
+  .inside-card .card-text { flex: 1; }
+  .inside-card h3 { font-size: 17px; }
+  .inside-card .role { font-size: 10px; margin-bottom: 6px; }
+  .inside-card p { font-size: 13px; }
+  /* Override hover effects on touch */
+  .inside-card:hover { transform: none; }
+
+  /* --- FAILED SOLUTIONS --- */
+  .failed-section { padding: 40px 0; }
+  .failed-section h2 { font-size: 22px !important; }
+  .failed-grid { grid-template-columns: 1fr !important; gap: 10px; }
+  .failed-card { padding: 18px 16px; border-radius: 10px; }
+  .failed-card .emoji { font-size: 22px; margin-bottom: 8px; }
+  .failed-card h4 { font-size: 14px; }
+  .failed-card p { font-size: 13px; }
+  .failed-card .verdict { font-size: 12px; }
+
+  /* --- BRIDGE / STEPS --- */
+  .bridge-section { padding: 40px 0; }
+  .bridge-intro { margin-bottom: 28px; }
+  .bridge-intro h2 { font-size: 22px; }
+  .bridge-intro p { font-size: 15px; }
+  .steps-grid { grid-template-columns: 1fr; gap: 12px; }
+  .step-card { padding: 20px 18px; border-radius: 12px; }
+  .step-num { width: 34px; height: 34px; font-size: 16px; margin-bottom: 12px; }
+  .step-card h4 { font-size: 17px; }
+  .step-card p { font-size: 13px; }
+  .bridge-reveal { padding: 24px 18px; border-radius: 12px; }
+  .bridge-reveal h3 { font-size: 19px; }
+  .bridge-reveal p { font-size: 14px; }
+
+  /* --- ORIGIN --- */
+  .origin-section { padding: 40px 0; }
+  .origin-grid { grid-template-columns: 1fr; gap: 20px; }
+  .origin-photo {
+    max-width: 160px;
+    margin: 0 auto;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+  }
+  .origin-text h2 { font-size: 22px; text-align: center; }
   .origin-text p { font-size: 15px; }
+  .origin-text .us-vs-them {
+    font-size: 14px;
+    padding: 14px 14px;
+    line-height: 1.6;
+  }
 
-  .transform-section { padding: 48px 0; }
+  /* --- TRANSFORMATION --- */
+  .transform-section { padding: 40px 0; }
+  .transform-section h2 { font-size: 22px !important; }
   .transform-grid { grid-template-columns: 1fr; gap: 0; }
-  .transform-col { padding: 22px 18px; }
-  .transform-arrow { transform: rotate(90deg); padding: 10px 0; font-size: 20px; }
+  .transform-col { padding: 20px 16px; border-radius: 10px; }
+  .transform-col li { font-size: 13px; padding: 5px 0; }
+  .transform-arrow { transform: rotate(90deg); padding: 8px 0; font-size: 20px; }
 
-  .proof-section { padding: 48px 0; }
-  .proof-cards { grid-template-columns: 1fr !important; gap: 12px; }
+  /* --- PROOF --- */
+  .proof-section { padding: 40px 0; }
+  .proof-section h2 { font-size: 22px !important; }
+  .proof-cards {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-top: 24px;
+  }
 
-  .offer-section { padding: 48px 0; }
-  .offer-box { padding: 28px 20px; }
-  .offer-box h3 { font-size: 22px; }
-  .offer-total { flex-direction: column; gap: 8px; text-align: center; }
+  /* --- OFFER --- */
+  .offer-section { padding: 40px 0; }
+  .offer-section h2 { font-size: 22px !important; }
+  .offer-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+  .offer-box h3 { font-size: 20px; }
+  .offer-box .offer-sub { font-size: 13px; margin-bottom: 18px; }
+  .offer-stack { padding: 14px 16px; border-radius: 10px; }
+  .offer-stack li { font-size: 13px; padding: 7px 0; }
+  .offer-stack li .value { font-size: 11px; }
+  .offer-total {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    padding: 14px 16px;
+  }
   .offer-total .total-price .now { font-size: 30px; }
+  .offer-total .total-price .orig { font-size: 16px; }
 
-  .guarantee-section { padding: 48px 0; }
-  .guarantee-box { padding: 28px 20px; }
+  .bonus-banner { padding: 16px 14px; border-radius: 10px; margin-top: 18px; }
+  .bonus-banner h4 { font-size: 16px; }
+  .bonus-banner p { font-size: 12px; }
+
+  /* --- GUARANTEE --- */
+  .guarantee-section { padding: 40px 0; }
+  .guarantee-box { padding: 24px 18px; border-radius: 12px; }
+  .guarantee-box .shield { font-size: 36px; margin-bottom: 12px; }
   .guarantee-box h3 { font-size: 20px; }
   .guarantee-box p { font-size: 14px; }
 
-  .faq-section { padding: 48px 0; }
-  .faq-q { font-size: 15px; padding: 16px 0; }
-  .faq-a-inner { font-size: 14px; }
+  /* --- FAQ --- */
+  .faq-section { padding: 40px 0; }
+  .faq-section h2 { font-size: 22px !important; }
+  .faq-list { margin-top: 24px; }
+  .faq-q { font-size: 14px; padding: 16px 0; min-height: 48px; }
+  .faq-q::after { font-size: 20px; }
+  .faq-a-inner { font-size: 13px; padding-bottom: 14px; }
 
-  .final-cta { padding: 48px 0; }
-  .final-cta h2 { font-size: 24px; }
+  /* --- FINAL CTA --- */
+  .final-cta { padding: 40px 0; }
+  .final-cta h2 { font-size: 22px; }
+  .final-cta p { font-size: 14px; margin-bottom: 20px; }
   .final-cta .btn-primary { max-width: 100%; }
 
-  .popup { left: 10px; right: 10px; bottom: 12px; max-width: none; border-radius: 10px; padding: 12px 14px; }
+  /* --- POPUP: Above sticky CTA bar --- */
+  .popup {
+    left: 10px;
+    right: 10px;
+    bottom: 90px;
+    max-width: none;
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .popup .emoji { font-size: 20px; }
+  .popup .popup-text { font-size: 12px; }
 
+  /* --- SECTION LABELS --- */
   .section-label { font-size: 10px; letter-spacing: 1.5px; }
-  .footer { padding: 24px 16px; font-size: 12px; }
+  .section-label::before { width: 16px; }
 
-  .nesb-badges { grid-template-columns: 1fr 1fr; gap: 6px; }
+  /* --- FOOTER: Extra padding for sticky bar --- */
+  .footer { padding: 24px 16px 32px; font-size: 12px; }
 }
 
+/* ============================================
+   SMALL PHONES — 390px and below
+   ============================================ */
 @media (max-width: 390px) {
-  .hero-headline h1 { font-size: 25px; }
-  .hero-sub { font-size: 14px; }
-  .cta-panel h3 { font-size: 18px; }
+  .hero-headline h1 { font-size: 23px; }
+  .hero-sub { font-size: 13px; }
+  .cta-panel h3 { font-size: 17px; }
   .cta-panel .price { font-size: 28px; }
-  .gap-content h2 { font-size: 22px; }
+  .gap-content h2 { font-size: 20px; }
+  .icp-callout span { font-size: 9px; padding: 4px 10px; }
+
+  .sticky-mobile-cta .sticky-price .now { font-size: 20px; }
+  .sticky-mobile-cta .btn-sticky { font-size: 13px; padding: 12px 12px; }
+
+  .nesb-badges { grid-template-columns: 1fr 1fr; gap: 4px; }
+  .nesb-badge { padding: 6px 6px; }
 }
 </style>
 </head>
@@ -1388,33 +1650,30 @@ strong.white { color: var(--text); }
   <a href="#offer" class="nav-cta">Get The Playbook — $28 →</a>
 </nav>
 
-<!-- ===== URGENCY BANNER — Maciek: 48hr urgency ===== -->
+<!-- ===== URGENCY BANNER ===== -->
 <div class="urgency-bar">
-  🔥 Your Exclusive Discount Expires In: <span class="timer" id="countdown">47:59:59</span>
+  🔥 Discount Expires In: <span class="timer" id="countdown">47:59:59</span>
 </div>
 
 <!-- ===== HERO / ATF ===== -->
 <section class="hero">
   <div class="container">
-
-    <!-- ICP Callout — Maciek: call out dream ICP directly -->
     <div class="icp-callout fade-up">
       <span>For Business Owners Sick of Launching on the Wrong Day &amp; Wondering Why Nothing Lands</span>
     </div>
 
-    <!-- Headline — David: Gap hook + Maciek: dream outcome without limitation -->
     <div class="hero-headline fade-up fade-up-d1">
       <h1>Know <em>Exactly</em> When to Push, Pitch, Launch &amp; Rest — Every Day of 2026</h1>
     </div>
 
     <p class="hero-sub fade-up fade-up-d2">
-      You have 24 hours. So does everyone else. The difference? <strong>Allocation.</strong> This calendar shows you which days amplify action and which days punish it — so you stop fighting the current and start riding it.
+      You have 24 hours. So does everyone else. The difference? <strong>Allocation.</strong> This calendar shows you which days amplify action and which punish it.
     </p>
 
-    <!-- ATF Grid: Product Preview + CTA Panel — Maciek: VSL left, order form right -->
+    <!-- ATF Grid — On mobile: CTA panel renders FIRST (order: 1), product preview SECOND (order: 2) -->
     <div class="atf-grid fade-up fade-up-d3">
 
-      <!-- Product Preview (replaces VSL — compact delivery for SLO) -->
+      <!-- Product Preview -->
       <div class="vsl-wrapper">
         <div class="product-preview">
           <div class="calendar-icon">📅</div>
@@ -1425,19 +1684,17 @@ strong.white { color: var(--text); }
             <div class="preview-feat"><span>⚡</span> Action + Avoid</div>
             <div class="preview-feat"><span>🔢</span> Energy Codes</div>
           </div>
-
-          <!-- Sample Entry — Maciek: activate perceived value -->
           <div class="sample-entry">
             <div class="sample-date">Sample Entry — Feb 5th</div>
             <div class="sample-title">Legacy Transforms</div>
-            <div class="sample-body">The 17 is generational wealth + the 5 is change. Pivot your wealth strategy. The way you've been building legacy needs evolution. Adapt the model to match your growth.</div>
+            <div class="sample-body">The 17 is generational wealth + the 5 is change. Pivot your wealth strategy. The way you've been building legacy needs evolution.</div>
             <div class="sample-avoid">Avoid: Rigid wealth plans. Even legacy needs flexibility.</div>
             <div class="sample-blur"></div>
           </div>
         </div>
       </div>
 
-      <!-- CTA Panel / Order Form -->
+      <!-- CTA Panel — On mobile this shows FIRST via flexbox order -->
       <div class="cta-panel">
         <h3>The <span style="color:var(--amber)">Timing Edge</span> for 2026</h3>
         <p class="sub">365 days of strategic numerology intel. Check the date. Read the entry. Execute the move.</p>
@@ -1448,7 +1705,6 @@ strong.white { color: var(--text); }
         </div>
         <p class="price-note">Launch pricing · First 200 copies only</p>
 
-        <!-- NESB Badges — Maciek: New Easy Safe Big -->
         <div class="nesb-badges">
           <div class="nesb-badge">
             <div class="nesb-icon">🆕</div>
@@ -1476,27 +1732,27 @@ strong.white { color: var(--text); }
           <li>9-Day Cycle framework for any month</li>
         </ul>
 
-        <!-- Order Bump — Maciek: the missing piece that completes the solution -->
-        <div class="order-bump">
+        <!-- Order Bump — whole card is tappable -->
+        <div class="order-bump" onclick="toggleBump()">
           <div class="order-bump-header">
-            <div class="order-bump-check" id="bumpCheck" onclick="toggleBump()"></div>
-            <div class="bump-label">⚡ Yes! Add My Personal Reading</div>
+            <div class="order-bump-check" id="bumpCheck"></div>
+            <div class="bump-label">⚡ Add My Personal Reading</div>
           </div>
-          <p>The calendar shows universal energy (60%). A <strong>Personal Numerology Reading</strong> gives you the other 40% — your Life Path layered on top of the calendar for hyper-specific timing. Without it, you're using a map without your coordinates.</p>
+          <p>The calendar = 60% (universal energy). A <strong>Personal Numerology Reading</strong> gives you the other 40% — your Life Path layered on top. Without it, you're using a map without your coordinates.</p>
           <div class="bump-price">+ $49 <span class="bump-orig">$77</span></div>
         </div>
 
         <a href="YOUR_STRIPE_LINK_HERE" class="btn-primary" id="mainCta" target="_blank">Get The 2026 Playbook — $28 →</a>
 
         <div class="guarantee-micro">
-          <span>🛡</span> 100% money-back guarantee. If the first week doesn't change how you plan, I'll refund every cent.
+          <span>🛡</span> 100% money-back guarantee · Instant delivery
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== COPY HINGE — Maciek: social proof beneath first CTA ===== -->
+<!-- ===== COPY HINGE ===== -->
 <div class="copy-hinge">
   <div class="container">
     <div class="proof-stats">
@@ -1510,36 +1766,34 @@ strong.white { color: var(--text); }
       </div>
       <div class="proof-stat">
         <div class="num">12+</div>
-        <div class="label">Countries Served</div>
+        <div class="label">Countries</div>
       </div>
       <div class="proof-stat">
         <div class="num">4.9★</div>
-        <div class="label">Client Rating</div>
+        <div class="label">Rating</div>
       </div>
     </div>
     <div class="proof-logos">
       <span>Numerology · 9-Day Cycle · Life Path Energy</span>
-      <span>|</span>
-      <span>The Calendar That Tells You When to Move</span>
     </div>
   </div>
 </div>
 
-<!-- ===== GAP SECTION — David: storytelling, why they're stuck ===== -->
+<!-- ===== GAP SECTION ===== -->
 <section class="gap-section">
   <div class="container">
     <div class="gap-content">
       <div class="section-label">The Timing Problem</div>
       <h2>You're Not Bad at Business. You're <em>Launching on the Wrong Days.</em></h2>
 
-      <p>You planned the launch for weeks. Refined the offer. Shot the content. Pressed "post" on a Tuesday at 2pm because some marketing guru told you that's the best time.</p>
+      <p>You planned the launch for weeks. Refined the offer. Shot the content. Pressed "post" on a Tuesday at 2pm because some guru told you that's the best time.</p>
 
       <p><strong>It flopped.</strong></p>
 
       <p>Meanwhile, your competitor threw something together in 48 hours and it landed. Different offer? No. Different audience? Same one. Different timing? <strong>Exactly.</strong></p>
 
       <div class="highlight-pain">
-        "I'm doing everything right — the strategy, the content, the hustle. But it feels like I'm pushing a boulder uphill while other people are coasting downhill with worse ideas."
+        "I'm doing everything right — the strategy, the content, the hustle. But it feels like I'm pushing a boulder uphill while others coast downhill with worse ideas."
       </div>
 
       <p>You blame the algorithm. The economy. Yourself. You buy another course. Rewrite the copy. Try again.</p>
@@ -1552,20 +1806,23 @@ strong.white { color: var(--text); }
         Energy moves in 9-day cycles. Some days amplify action. Some days punish it. Scheduling a launch on a "7 Energy" day is like opening a shop during a storm — the product's fine, the timing's catastrophic.
       </div>
 
-      <p>The entrepreneurs who seem "lucky" aren't smarter. They're (often unknowingly) aligned with the current. This calendar makes that alignment <strong>deliberate.</strong></p>
+      <p>The entrepreneurs who seem "lucky" aren't smarter. They're aligned with the current. This calendar makes that alignment <strong>deliberate.</strong></p>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- MID-PAGE CTA — mobile only -->
+<div class="mid-cta">
+  <a href="YOUR_STRIPE_LINK_HERE" class="btn-primary" target="_blank">Get The 2026 Playbook — $28 →</a>
+</div>
 
-<!-- ===== FAILED SOLUTIONS — David: graveyard of tried solutions ===== -->
+<!-- ===== FAILED SOLUTIONS ===== -->
 <section class="failed-section">
   <div class="container">
     <div style="text-align:center; max-width:600px; margin:0 auto;">
       <div class="section-label">Why Nothing Has Worked</div>
       <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(28px,3.5vw,40px); margin-bottom:12px;">The Graveyard of <em class="gold">"Productivity" Tools</em></h2>
-      <p style="font-size:16px; color:var(--text-dim);">You're not here because you're lazy. You're here because none of these tools address the <em>invisible variable</em>.</p>
+      <p style="font-size:16px; color:var(--text-dim);">You're not here because you're lazy. You're here because none of these address the <em>invisible variable</em>.</p>
     </div>
 
     <div class="failed-grid">
@@ -1578,70 +1835,82 @@ strong.white { color: var(--text); }
       <div class="failed-card">
         <div class="emoji">📈</div>
         <h4>Marketing Courses / "Best Time to Post"</h4>
-        <p>They gave you tactics. Posting schedules. Content pillars. But the tactics work sometimes and not others — and nobody can explain why.</p>
-        <div class="verdict">"Same strategy. Some weeks it works, some weeks it's crickets. There's a variable I'm not seeing."</div>
+        <p>They gave you tactics. Posting schedules. But the tactics work sometimes and not others — nobody can explain why.</p>
+        <div class="verdict">"Same strategy. Some weeks it works, some weeks crickets."</div>
       </div>
       <div class="failed-card">
         <div class="emoji">🧠</div>
         <h4>Hustle Culture / Discipline</h4>
-        <p>You wake at 5am. You follow the routine. You grind 7 days a week. But forcing output on a day designed for recovery is like running with the handbrake on.</p>
-        <div class="verdict">"I'm burning out trying to brute-force results that other people get effortlessly."</div>
+        <p>You wake at 5am. You follow the routine. But forcing output on a recovery day is like running with the handbrake on.</p>
+        <div class="verdict">"I'm burning out brute-forcing results others get effortlessly."</div>
       </div>
       <div class="failed-card">
         <div class="emoji">✨</div>
         <h4>Manifestation / Vision Boards</h4>
-        <p>You visualised the revenue goal for months. Kept the vibration high. But manifestation without timing is like planting seeds in winter and wondering why nothing grows.</p>
-        <div class="verdict">"I believed harder than anyone. The universe didn't deliver. Maybe the calendar was off."</div>
+        <p>You visualised the revenue goal for months. But manifestation without timing is like planting seeds in winter.</p>
+        <div class="verdict">"I believed harder than anyone. Maybe the calendar was off."</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== WHAT'S INSIDE — Maciek: activate perceived value ===== -->
+<!-- ===== WHAT'S INSIDE ===== -->
 <section class="inside-section">
   <div class="container">
     <div style="text-align:center; max-width:640px; margin:0 auto;">
       <div class="section-label">What You Get</div>
       <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(28px,4vw,44px); margin-bottom:8px;">Every Day of 2026, <em class="gold">Decoded</em></h2>
-      <p style="font-size:16px; color:var(--text-dim);">Check the date. Read the entry. Execute the action. Avoid the pitfall. 10 minutes changes how you plan your week.</p>
+      <p style="font-size:16px; color:var(--text-dim);">Check the date. Read the entry. Execute the action. Avoid the pitfall.</p>
     </div>
 
     <div class="inside-grid">
       <div class="inside-card">
         <div class="icon">📊</div>
-        <div class="role">The Daily Intel</div>
-        <h3>365 Entries</h3>
-        <p>Every single day of 2026 has a specific entry with Life Path energy, daily energy, a clear action directive, and what to avoid. No guesswork.</p>
+        <div class="card-text">
+          <div class="role">The Daily Intel</div>
+          <h3>365 Entries</h3>
+          <p>Every single day has a specific entry with Life Path energy, daily energy, a clear action directive, and what to avoid.</p>
+        </div>
       </div>
       <div class="inside-card">
         <div class="icon">🟢</div>
-        <div class="role">The Traffic Light</div>
-        <h3>High-Output vs Recovery</h3>
-        <p>1, 8, 11 Energy days = push hard. 7, 6 Energy days = think and rest. Know which gear to be in before you start the engine.</p>
+        <div class="card-text">
+          <div class="role">The Traffic Light</div>
+          <h3>High-Output vs Recovery</h3>
+          <p>1, 8, 11 Energy = push hard. 7, 6 Energy = think and rest. Know which gear before you start.</p>
+        </div>
       </div>
       <div class="inside-card">
         <div class="icon">🔄</div>
-        <div class="role">The Pattern</div>
-        <h3>9-Day Cycle Framework</h3>
-        <p>Once you understand the 9-day rhythm, you can predict any month's flow. This section teaches you the underlying pattern so you're never caught off guard.</p>
+        <div class="card-text">
+          <div class="role">The Pattern</div>
+          <h3>9-Day Cycle Framework</h3>
+          <p>Understand the 9-day rhythm and you can predict any month's flow. Never caught off guard.</p>
+        </div>
       </div>
       <div class="inside-card">
         <div class="icon">📐</div>
-        <div class="role">The Rule</div>
-        <h3>The 60/40 Split</h3>
-        <p>This calendar = 60% of the equation (universal energy). Your Personal Life Path = the other 40%. Learn how the two layers interact for precision planning.</p>
+        <div class="card-text">
+          <div class="role">The Rule</div>
+          <h3>The 60/40 Split</h3>
+          <p>This calendar = 60% (universal). Your Life Path = the other 40%. Learn how they interact.</p>
+        </div>
       </div>
       <div class="inside-card">
         <div class="icon">⚡</div>
-        <div class="role">The Edge</div>
-        <h3>Strategic Overlays</h3>
-        <p>Scaling revenue? Hiring? Firing? Each goal changes how you use the energy. Specific frameworks for business decisions mapped to daily entries.</p>
+        <div class="card-text">
+          <div class="role">The Edge</div>
+          <h3>Strategic Overlays</h3>
+          <p>Hiring, firing, launching, pitching — each goal mapped to energy types.</p>
+        </div>
       </div>
       <div class="inside-card">
         <div class="icon">🚨</div>
-        <div class="role">The Warnings</div>
-        <h3>Anomaly Flags</h3>
-        <p>Master Numbers and rare alignments flagged throughout. These are the days that can change everything — or destroy everything — depending on how you move.</p>
+        <div class="card-text">
+          <div class="role">The Warnings</div>
+          <h3>Anomaly Flags</h3>
+          <p>Master Numbers and rare alignments flagged. The days that change everything.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1649,46 +1918,51 @@ strong.white { color: var(--text); }
 
 <div class="divider"></div>
 
-<!-- ===== BRIDGE — How It Works (3 Steps) — Maciek: compact, easy delivery ===== -->
+<!-- MID-PAGE CTA — mobile only -->
+<div class="mid-cta">
+  <a href="YOUR_STRIPE_LINK_HERE" class="btn-primary" target="_blank">Get The 2026 Playbook — $28 →</a>
+</div>
+
+<!-- ===== BRIDGE — How It Works ===== -->
 <section class="bridge-section">
   <div class="container">
     <div class="bridge-intro">
       <div class="section-label">How It Works</div>
       <h2>10 Minutes. <em>That's It.</em></h2>
-      <p>This isn't a course. There's no homework. No modules to complete. You open it, check the day, and move accordingly. The calendar does the heavy lifting — you just execute.</p>
+      <p>This isn't a course. No homework. No modules. Open it, check the day, move accordingly. The calendar does the heavy lifting.</p>
     </div>
 
     <div class="steps-grid">
       <div class="step-card">
         <div class="step-num">1</div>
         <h4>Check the Date</h4>
-        <p>Open the playbook. Find today's entry. Read the energy type, the action directive, and the avoidance warning.</p>
+        <p>Find today's entry. Read the energy type, action directive, and avoidance warning.</p>
         <div class="step-time">⏱ 2 minutes</div>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
         <h4>Align Your Calendar</h4>
-        <p>Move the pitch to a High-Output day. Push the deep-work session to a Recovery day. Rearrange — don't add more.</p>
+        <p>Move the pitch to a High-Output day. Push deep-work to a Recovery day. Rearrange — don't add more.</p>
         <div class="step-time">⏱ 5 minutes</div>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
         <h4>Execute the Move</h4>
-        <p>You now have something 99% of entrepreneurs don't — visibility into the current. Stop fighting it. Ride it.</p>
+        <p>You now have something 99% of entrepreneurs don't — visibility into the current. Ride it.</p>
         <div class="step-time">⏱ 3 minutes</div>
       </div>
     </div>
 
     <div class="bridge-reveal">
       <h3>Everyone Has 24 Hours. <span style="color:var(--amber)">The Difference Is Allocation.</span></h3>
-      <p>High-output people don't work harder. They work on the right things at the right time. This calendar is the filter that tells you which is which.</p>
+      <p>High-output people don't work harder. They work on the right things at the right time.</p>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ===== ORIGIN STORY — David: reluctant hero + us vs them ===== -->
+<!-- ===== ORIGIN STORY ===== -->
 <section class="origin-section">
   <div class="container">
     <div class="origin-grid">
@@ -1701,13 +1975,11 @@ strong.white { color: var(--text); }
 
         <p>I built this calendar for myself. Then for my 1-on-1 clients — founders and executives who pay well for strategic timing intel. It was never meant to be a product.</p>
 
-        <p>But after Sara, and then dozens of others in my WhatsApp group kept saying <strong>"I need to plan my weeks with this knowledge"</strong> — I realised I was doing the community a disservice by keeping it locked behind high-ticket calls.</p>
+        <p>But after Sara, and then dozens of others kept saying <strong>"I need to plan my weeks with this knowledge"</strong> — I realised I was gatekeeping.</p>
 
         <div class="us-vs-them">
-          I'm not the "post affirmations and charge you $500 for a course" type. I do chart work. Real analysis. And this playbook is the most accessible version of that work I've ever released — because the timing intel shouldn't be reserved for people who can afford a full reading.
+          I'm not the "post affirmations and charge you $500 for a course" type. I do chart work. Real analysis. This playbook is the most accessible version of that work I've ever released.
         </div>
-
-        <p>So here it is. The same system I use with private clients, distilled into a daily playbook that any business owner can pick up and use in 10 minutes.</p>
 
         <p><strong>Use it. Then decide if you want to go deeper.</strong></p>
       </div>
@@ -1715,14 +1987,13 @@ strong.white { color: var(--text); }
   </div>
 </section>
 
-<!-- ===== TRANSFORMATION — Before/After ===== -->
+<!-- ===== TRANSFORMATION ===== -->
 <section class="transform-section">
   <div class="container">
     <div style="text-align:center; margin-bottom:16px;">
       <div class="section-label">The Shift</div>
       <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(28px,3.5vw,40px);">Before the Playbook vs. <em class="gold">After</em></h2>
     </div>
-
     <div class="transform-grid">
       <div class="transform-col before">
         <h4>🔴 Before</h4>
@@ -1731,19 +2002,17 @@ strong.white { color: var(--text); }
           <li>Same effort, wildly inconsistent results</li>
           <li>Burning out from non-stop grinding</li>
           <li>"Why did that post flop?" every other week</li>
-          <li>Scheduling big moves on the wrong days</li>
+          <li>Scheduling big moves on wrong days</li>
           <li>Feeling like you're swimming upstream</li>
         </ul>
       </div>
-
       <div class="transform-arrow">→</div>
-
       <div class="transform-col after">
         <h4>🟢 After</h4>
         <ul>
           <li>Launching on days that amplify action</li>
           <li>Same effort, compounding results</li>
-          <li>Built-in recovery days that actually recharge</li>
+          <li>Built-in recovery days that recharge</li>
           <li>Knowing why Tuesday flopped and Thursday banged</li>
           <li>Every big move backed by energy data</li>
           <li>Riding the current instead of fighting it</li>
@@ -1753,40 +2022,32 @@ strong.white { color: var(--text); }
   </div>
 </section>
 
-<!-- ===== SOCIAL PROOF — David: belief system engineering ===== -->
+<!-- MID-PAGE CTA — mobile only -->
+<div class="mid-cta">
+  <a href="YOUR_STRIPE_LINK_HERE" class="btn-primary" target="_blank">Get The 2026 Playbook — $28 →</a>
+</div>
+
+<!-- ===== SOCIAL PROOF ===== -->
 <section class="proof-section">
   <div class="container">
     <div style="text-align:center;">
       <div class="section-label">Real Results</div>
       <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(28px,3.5vw,40px);">Don't Take My Word. <em class="gold">Take Theirs.</em></h2>
     </div>
-
     <div class="proof-cards">
-      <div class="proof-card">
-        <img src="https://iili.io/qJzRWBf.jpg" alt="Client testimonial" loading="lazy">
-      </div>
-      <div class="proof-card">
-        <img src="https://iili.io/qJzRw22.jpg" alt="Client testimonial" loading="lazy">
-      </div>
-      <div class="proof-card">
-        <img src="https://iili.io/qJzRN7S.jpg" alt="Client testimonial" loading="lazy">
-      </div>
-      <div class="proof-card">
-        <img src="https://iili.io/qJzR7gp.jpg" alt="Client testimonial" loading="lazy">
-      </div>
-      <div class="proof-card">
-        <img src="https://iili.io/qJzRlet.jpg" alt="Client testimonial" loading="lazy">
-      </div>
-      <div class="proof-card">
-        <img src="https://iili.io/qJzRadN.jpg" alt="Client testimonial" loading="lazy">
-      </div>
+      <div class="proof-card"><img src="https://iili.io/qJzRWBf.jpg" alt="Client testimonial" loading="lazy"></div>
+      <div class="proof-card"><img src="https://iili.io/qJzRw22.jpg" alt="Client testimonial" loading="lazy"></div>
+      <div class="proof-card"><img src="https://iili.io/qJzRN7S.jpg" alt="Client testimonial" loading="lazy"></div>
+      <div class="proof-card"><img src="https://iili.io/qJzR7gp.jpg" alt="Client testimonial" loading="lazy"></div>
+      <div class="proof-card"><img src="https://iili.io/qJzRlet.jpg" alt="Client testimonial" loading="lazy"></div>
+      <div class="proof-card"><img src="https://iili.io/qJzRadN.jpg" alt="Client testimonial" loading="lazy"></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ===== OFFER STACK — Maciek: SLO with perceived value + implementation call bonus ===== -->
+<!-- ===== OFFER STACK ===== -->
 <section class="offer-section" id="offer">
   <div class="container">
     <div style="text-align:center; margin-bottom:40px;">
@@ -1801,12 +2062,12 @@ strong.white { color: var(--text); }
       <p class="offer-sub">2026 Edition — Your Daily Timing Edge</p>
 
       <ul class="offer-stack">
-        <li><strong>365 Daily Numerology Entries</strong> — action + avoidance for every day of 2026 <span class="value">Value: $97</span></li>
-        <li><strong>High-Output vs Recovery Day Map</strong> — know when to push and when to pull back <span class="value">Value: $27</span></li>
-        <li><strong>9-Day Cycle Framework</strong> — predict the rhythm of any month, forever <span class="value">Value: $37</span></li>
-        <li><strong>The 60/40 Rule Breakdown</strong> — how universal energy interacts with your personal chart <span class="value">Value: $17</span></li>
-        <li><strong>Strategic Overlays</strong> — hiring, firing, launching, pitching mapped to energy types <span class="value">Value: $27</span></li>
-        <li><strong>Anomaly & Master Number Flags</strong> — the days that change everything, flagged in advance <span class="value">Value: $17</span></li>
+        <li><strong>365 Daily Numerology Entries</strong> — action + avoidance for every day <span class="value">$97</span></li>
+        <li><strong>High-Output vs Recovery Map</strong> — know when to push and pull back <span class="value">$27</span></li>
+        <li><strong>9-Day Cycle Framework</strong> — predict any month's rhythm <span class="value">$37</span></li>
+        <li><strong>The 60/40 Rule Breakdown</strong> — universal meets personal <span class="value">$17</span></li>
+        <li><strong>Strategic Overlays</strong> — hiring, firing, launching mapped <span class="value">$27</span></li>
+        <li><strong>Anomaly &amp; Master Number Flags</strong> — game-changing days flagged <span class="value">$17</span></li>
       </ul>
 
       <div class="offer-total">
@@ -1820,14 +2081,13 @@ strong.white { color: var(--text); }
       <a href="YOUR_STRIPE_LINK_HERE" class="btn-primary" target="_blank">Get The 2026 Playbook — $28 →</a>
 
       <div class="guarantee-micro">
-        <span>🛡</span> 100% money-back guarantee · Instant delivery · PDF format
+        <span>🛡</span> 100% money-back guarantee · Instant delivery · PDF
       </div>
 
-      <!-- Bonus — Maciek: implementation call plants high ticket seeds -->
       <div class="bonus-banner">
         <div class="bonus-tag">Free Bonus</div>
         <h4>1-on-1 Implementation Call With Rafi</h4>
-        <p>A personal call to show you how to layer the calendar over <em>your</em> specific business goals. This is where the universal energy meets <strong>your</strong> chart — and where most people realise they want the full reading.</p>
+        <p>A personal call to layer the calendar over <em>your</em> business goals. This is where the universal energy meets <strong>your</strong> chart.</p>
       </div>
     </div>
   </div>
@@ -1839,7 +2099,7 @@ strong.white { color: var(--text); }
     <div class="guarantee-box">
       <div class="shield">🛡</div>
       <h3>The "First Week" <span style="color:var(--amber)">Guarantee</span></h3>
-      <p>Use the playbook for one week. If the daily entries don't change how you plan, schedule, and move — I'll refund 100% of your money. No questions. No forms. The playbook is $28. The risk is zero. The upside is an entire year of strategic timing intel.</p>
+      <p>Use the playbook for one week. If the daily entries don't change how you plan, schedule, and move — I'll refund 100%. No questions. The playbook is $28. The risk is zero.</p>
     </div>
   </div>
 </section>
@@ -1851,35 +2111,34 @@ strong.white { color: var(--text); }
       <div class="section-label">Common Questions</div>
       <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(28px,3.5vw,40px);">Before You <em class="gold">Decide</em></h2>
     </div>
-
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q">Is this like a horoscope app?</button>
-        <div class="faq-a"><div class="faq-a-inner">No. Horoscope apps give you vague personality descriptions. This is a strategic planning tool built on numerological energy cycles. Each day has a specific action directive and avoidance warning tied to mathematical energy patterns — not "Mercury is in retrograde, be careful." You get a concrete instruction you can act on in 10 minutes.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">No. Horoscope apps give vague personality descriptions. This is a strategic planning tool built on numerological energy cycles. Each day has a specific action directive tied to mathematical energy patterns — not "Mercury is in retrograde." You get a concrete instruction you can act on in 10 minutes.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">I'm sceptical of numerology. Will this work?</button>
-        <div class="faq-a"><div class="faq-a-inner">I get it. I used to scroll past this stuff too. But here's the test: try it for one week. Schedule your high-stakes activities on 1, 8, or 11 Energy days. Move your rest to 7 or 6 Energy days. If you don't notice a difference, I'll give you your money back. That's how confident I am that the pattern holds up once you actually use it.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Try it for one week. Schedule high-stakes activities on 1, 8, or 11 Energy days. Move rest to 7 or 6 Energy days. If you don't notice a difference, I'll give you your money back. That's how confident I am.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What's the difference between this and a full reading?</button>
-        <div class="faq-a"><div class="faq-a-inner">The playbook shows you the <strong>universal</strong> energy — what's happening for everyone. That's 60% of the picture. A full 1-on-1 reading layers your Personal Life Path, Vedic chart, and Chinese Zodiac on top of the universal data for complete, individualised timing. Think of the playbook as the weather forecast — the reading is your personalised GPS route through the weather.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">The playbook shows <strong>universal</strong> energy — what's happening for everyone (60%). A full reading layers your Personal Life Path, Vedic chart, and Chinese Zodiac on top for complete individualised timing. Think of the playbook as the weather forecast — the reading is your personalised GPS route through the weather.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">How quickly will I see results?</button>
-        <div class="faq-a"><div class="faq-a-inner">Immediately. Open the playbook, check today's entry, and adjust your schedule accordingly. The first week is when most people have the "why didn't I know this before" moment — because they'll realise their recent wins and losses map perfectly to the energy calendar.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Immediately. Open it, check today's entry, adjust your schedule. The first week is when most people realise their recent wins and losses map perfectly to the energy calendar.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Is this only for entrepreneurs?</button>
-        <div class="faq-a"><div class="faq-a-inner">It's designed for business owners because the action directives are oriented around revenue-generating activities — launches, pitches, negotiations, hiring, firing. But anyone making strategic decisions (investors, executives, freelancers) will find it immediately useful. If you make decisions for a living, this calendar is for you.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Designed for business owners — the action directives are oriented around revenue-generating activities. But anyone making strategic decisions (investors, executives, freelancers) will find it immediately useful.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What format is it?</button>
-        <div class="faq-a"><div class="faq-a-inner">PDF. Instant delivery. You can open it on your phone, tablet, or laptop. Most people bookmark the current month and check it each morning alongside their coffee. Takes less time than checking Instagram.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">PDF. Instant delivery. Open on your phone, tablet, or laptop. Most people bookmark the current month and check it each morning. Takes less time than checking Instagram.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">What if I want to go deeper after this?</button>
-        <div class="faq-a"><div class="faq-a-inner">That's exactly what the free Implementation Call is for. On that call, I'll show you how to layer your personal chart over the universal calendar. If you want the full personalised reading after that, we can discuss it — but there's zero pressure. The playbook stands on its own as a complete tool.</div></div>
+        <button class="faq-q">What if I want to go deeper?</button>
+        <div class="faq-a"><div class="faq-a-inner">That's what the free Implementation Call is for. I'll show you how to layer your personal chart over the universal calendar. If you want the full reading after that, we can discuss it — zero pressure. The playbook stands on its own.</div></div>
       </div>
     </div>
   </div>
@@ -1889,7 +2148,7 @@ strong.white { color: var(--text); }
 <section class="final-cta">
   <div class="container">
     <h2>Everyone Has 24 Hours.<br>Start Using Yours <em>Strategically.</em></h2>
-    <p>$28 for 365 days of timing intel that 99% of entrepreneurs don't have. Check the date. Read the entry. Execute the move.</p>
+    <p>$28 for 365 days of timing intel that 99% of entrepreneurs don't have.</p>
     <a href="YOUR_STRIPE_LINK_HERE" class="btn-primary" target="_blank">Get The 2026 Playbook — $28 →</a>
   </div>
 </section>
@@ -1898,6 +2157,17 @@ strong.white { color: var(--text); }
 <footer class="footer">
   &copy; 2026 Rafi's World. All rights reserved.
 </footer>
+
+<!-- ===== STICKY MOBILE CTA BAR ===== -->
+<div class="sticky-mobile-cta" id="stickyBar">
+  <div class="sticky-inner">
+    <div class="sticky-price">
+      <span class="now">$28</span>
+      <span class="orig">$67</span>
+    </div>
+    <a href="YOUR_STRIPE_LINK_HERE" class="btn-sticky" target="_blank">Get The Playbook →</a>
+  </div>
+</div>
 
 <!-- ===== SOCIAL PROOF POPUP ===== -->
 <div class="popup" id="popup">
@@ -1910,7 +2180,7 @@ strong.white { color: var(--text); }
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-// COUNTDOWN TIMER — Maciek: 48hr urgency
+// COUNTDOWN TIMER
 (function() {
   const key = 'rafi_playbook_end';
   let endTime = localStorage.getItem(key);
@@ -1919,7 +2189,6 @@ strong.white { color: var(--text); }
     localStorage.setItem(key, endTime);
   }
   endTime = parseInt(endTime);
-
   function update() {
     const now = Date.now();
     let diff = Math.max(0, endTime - now);
@@ -1936,7 +2205,7 @@ strong.white { color: var(--text); }
   setInterval(update, 1000);
 })();
 
-// ORDER BUMP TOGGLE
+// ORDER BUMP TOGGLE — entire card is tappable
 function toggleBump() {
   const check = document.getElementById('bumpCheck');
   check.classList.toggle('checked');
@@ -1947,6 +2216,39 @@ function toggleBump() {
     cta.textContent = 'Get The 2026 Playbook — $28 →';
   }
 }
+
+// STICKY BAR: Show only after scrolling past the hero CTA panel
+(function() {
+  const stickyBar = document.getElementById('stickyBar');
+  const ctaPanel = document.querySelector('.cta-panel');
+  if (!stickyBar || !ctaPanel) return;
+
+  let ticking = false;
+  function checkScroll() {
+    const rect = ctaPanel.getBoundingClientRect();
+    // Show sticky bar when CTA panel has scrolled out of view
+    if (rect.bottom < 0) {
+      stickyBar.style.transform = 'translateY(0)';
+      stickyBar.style.opacity = '1';
+    } else {
+      stickyBar.style.transform = 'translateY(100%)';
+      stickyBar.style.opacity = '0';
+    }
+    ticking = false;
+  }
+
+  // Start hidden
+  stickyBar.style.transform = 'translateY(100%)';
+  stickyBar.style.opacity = '0';
+  stickyBar.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(checkScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
 
 // SOCIAL PROOF POPUP
 (function() {
@@ -1974,8 +2276,8 @@ function toggleBump() {
     popup.classList.add('show');
     setTimeout(() => popup.classList.remove('show'), 5000);
   }
-  setTimeout(show, 6000);
-  setInterval(show, 18000);
+  setTimeout(show, 8000);
+  setInterval(show, 20000);
 })();
 
 // FAQ ACCORDION
@@ -1984,12 +2286,10 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     const item = btn.parentElement;
     const answer = item.querySelector('.faq-a');
     const isOpen = item.classList.contains('open');
-
     document.querySelectorAll('.faq-item.open').forEach(el => {
       el.classList.remove('open');
       el.querySelector('.faq-a').style.maxHeight = '0';
     });
-
     if (!isOpen) {
       item.classList.add('open');
       answer.style.maxHeight = answer.scrollHeight + 'px';
