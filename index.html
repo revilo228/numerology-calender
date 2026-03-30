@@ -162,8 +162,6 @@ em.gold { color: var(--amber); font-style: italic; }
   background: var(--surface); border: 1px solid var(--surface2);
   border-radius: 16px; overflow: hidden; position: relative;
 }
-
-/* Wistia player block */
 .vsl-player { display: block; width: 100%; }
 .vsl-player wistia-player { display: block; width: 100%; }
 
@@ -601,11 +599,9 @@ em.gold { color: var(--amber); font-style: italic; }
 
       <!-- VSL + Product Preview -->
       <div class="vsl-wrapper">
-        <!-- ===== WISTIA VSL ===== -->
         <div class="vsl-player">
           <wistia-player media-id="eikaarra5t" aspect="1.7777777777777777"></wistia-player>
         </div>
-        <!-- Product Preview below video -->
         <div class="product-preview">
           <div class="calendar-icon">📅</div>
           <div class="edition">2026 Edition</div>
@@ -891,7 +887,7 @@ em.gold { color: var(--amber); font-style: italic; }
 <div class="sticky-mobile-cta" id="stickyBar">
   <div class="sticky-inner">
     <div class="sticky-price"><span class="now">$28</span><span class="orig">$67</span></div>
-    <a href="https://buy.stripe.com/14AdRbbd4b4Y8Do9Ueasg0c" class="btn-sticky" target="_blank">Get The Playbook →</a>
+    <a href="https://buy.stripe.com/14AdRbbd4b4Y8Do9Ueasg0c" class="btn-sticky" id="stickyBtn" target="_blank">Get The Playbook →</a>
   </div>
 </div>
 
@@ -905,52 +901,70 @@ em.gold { color: var(--amber); font-style: italic; }
 </div>
 
 <script>
-// COUNTDOWN
-(function(){
-  const key='rafi_playbook_end';
-  let endTime=localStorage.getItem(key);
-  if(!endTime){endTime=Date.now()+48*60*60*1000;localStorage.setItem(key,endTime);}
-  endTime=parseInt(endTime);
-  function update(){
-    const now=Date.now();let diff=Math.max(0,endTime-now);
-    const h=Math.floor(diff/3600000);diff%=3600000;
-    const m=Math.floor(diff/60000);diff%=60000;
-    const s=Math.floor(diff/1000);
-    const el=document.getElementById('countdown');
-    if(el)el.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  }
-  update();setInterval(update,1000);
-})();
+// ─── STRIPE LINKS ────────────────────────────────────────────────
+const LINK_PLAYBOOK = 'https://buy.stripe.com/14AdRbbd4b4Y8Do9Ueasg0c';
+const LINK_BUNDLE   = 'https://buy.stripe.com/7sYfZjftkc92bPA5DYasg0d';
 
-// ORDER BUMP
-function toggleBump(){
-  const check=document.getElementById('bumpCheck');
-  check.classList.toggle('checked');
-  const cta=document.getElementById('mainCta');
-  cta.textContent=check.classList.contains('checked')?'Get Playbook + Reading — $77 →':'Get The 2026 Playbook — $28 →';
+// ─── ORDER BUMP ──────────────────────────────────────────────────
+function toggleBump() {
+  const check   = document.getElementById('bumpCheck');
+  const cta     = document.getElementById('mainCta');
+  const sticky  = document.getElementById('stickyBtn');
+  const bumped  = check.classList.toggle('checked');
+
+  if (bumped) {
+    cta.textContent  = 'Get Playbook + Personal Reading — $77 →';
+    cta.href         = LINK_BUNDLE;
+    sticky.textContent = 'Get Playbook + Reading — $77 →';
+    sticky.href      = LINK_BUNDLE;
+  } else {
+    cta.textContent  = 'Get The 2026 Playbook — $28 →';
+    cta.href         = LINK_PLAYBOOK;
+    sticky.textContent = 'Get The Playbook →';
+    sticky.href      = LINK_PLAYBOOK;
+  }
 }
 
-// STICKY BAR
+// ─── COUNTDOWN ───────────────────────────────────────────────────
 (function(){
-  const stickyBar=document.getElementById('stickyBar');
-  const ctaPanel=document.querySelector('.cta-panel');
-  if(!stickyBar||!ctaPanel)return;
-  let ticking=false;
-  function checkScroll(){
-    const rect=ctaPanel.getBoundingClientRect();
-    stickyBar.style.transform=rect.bottom<0?'translateY(0)':'translateY(100%)';
-    stickyBar.style.opacity=rect.bottom<0?'1':'0';
-    ticking=false;
+  const key = 'rafi_playbook_end';
+  let endTime = localStorage.getItem(key);
+  if (!endTime) { endTime = Date.now() + 48*60*60*1000; localStorage.setItem(key, endTime); }
+  endTime = parseInt(endTime);
+  function update() {
+    let diff = Math.max(0, endTime - Date.now());
+    const h = Math.floor(diff / 3600000); diff %= 3600000;
+    const m = Math.floor(diff / 60000);   diff %= 60000;
+    const s = Math.floor(diff / 1000);
+    const el = document.getElementById('countdown');
+    if (el) el.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
   }
-  stickyBar.style.transform='translateY(100%)';
-  stickyBar.style.opacity='0';
-  stickyBar.style.transition='transform 0.3s ease, opacity 0.3s ease';
-  window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(checkScroll);ticking=true;}},{passive:true});
+  update(); setInterval(update, 1000);
 })();
 
-// POPUP
+// ─── STICKY BAR ──────────────────────────────────────────────────
 (function(){
-  const purchases=[
+  const bar = document.getElementById('stickyBar');
+  const panel = document.querySelector('.cta-panel');
+  if (!bar || !panel) return;
+  bar.style.transform = 'translateY(100%)';
+  bar.style.opacity = '0';
+  bar.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+  let ticking = false;
+  window.addEventListener('scroll', function(){
+    if (!ticking) { requestAnimationFrame(function(){
+      const rect = panel.getBoundingClientRect();
+      const show = rect.bottom < 0;
+      bar.style.transform = show ? 'translateY(0)' : 'translateY(100%)';
+      bar.style.opacity   = show ? '1' : '0';
+      ticking = false;
+    }); ticking = true; }
+  }, { passive: true });
+})();
+
+// ─── POPUP ───────────────────────────────────────────────────────
+(function(){
+  const purchases = [
     {name:'Marcus',loc:'Atlanta',product:'2026 Playbook'},
     {name:'Priya',loc:'London',product:'2026 Playbook + Reading'},
     {name:'James',loc:'New York',product:'2026 Playbook'},
@@ -960,26 +974,29 @@ function toggleBump(){
     {name:'Daniel',loc:'Toronto',product:'2026 Playbook'},
     {name:'Fatima',loc:'Paris',product:'2026 Playbook + Reading'}
   ];
-  const popup=document.getElementById('popup');
-  const text=document.getElementById('popup-text');
-  let last=-1;
-  function show(){
-    let i=Math.floor(Math.random()*purchases.length);
-    if(i===last)i=(i+1)%purchases.length;last=i;
-    const p=purchases[i];const t=Math.floor(Math.random()*10)+1;
-    text.innerHTML=`<p style="margin:0;"><strong>${p.name}</strong> from ${p.loc} just grabbed the <span class="product">${p.product}</span></p><div class="time-ago">${t} minutes ago</div>`;
-    popup.classList.add('show');setTimeout(()=>popup.classList.remove('show'),5000);
+  const popup = document.getElementById('popup');
+  const text  = document.getElementById('popup-text');
+  let last = -1;
+  function show() {
+    let i = Math.floor(Math.random() * purchases.length);
+    if (i === last) i = (i + 1) % purchases.length; last = i;
+    const p = purchases[i]; const t = Math.floor(Math.random() * 10) + 1;
+    text.innerHTML = `<p style="margin:0;"><strong>${p.name}</strong> from ${p.loc} just grabbed the <span class="product">${p.product}</span></p><div class="time-ago">${t} minutes ago</div>`;
+    popup.classList.add('show'); setTimeout(() => popup.classList.remove('show'), 5000);
   }
-  setTimeout(show,8000);setInterval(show,20000);
+  setTimeout(show, 8000); setInterval(show, 20000);
 })();
 
-// FAQ
-document.querySelectorAll('.faq-q').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const item=btn.parentElement;const answer=item.querySelector('.faq-a');
-    const isOpen=item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el=>{el.classList.remove('open');el.querySelector('.faq-a').style.maxHeight='0';});
-    if(!isOpen){item.classList.add('open');answer.style.maxHeight=answer.scrollHeight+'px';}
+// ─── FAQ ─────────────────────────────────────────────────────────
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item   = btn.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open'); el.querySelector('.faq-a').style.maxHeight = '0';
+    });
+    if (!isOpen) { item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
   });
 });
 </script>
