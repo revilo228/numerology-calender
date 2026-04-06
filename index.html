@@ -1135,10 +1135,12 @@ strong.white { color: var(--text); }
   .hero-headline h1 { font-size: 26px; padding: 0 4px; line-height: 1.2; }
   .hero-sub { font-size: 14px; margin: 10px auto 20px; padding: 0 4px; line-height: 1.5; }
 
-  /* Mobile ATF order: CTA first, then VSL */
+  /* =============================================
+     MOBILE ATF ORDER: VSL first, then CTA panel
+     ============================================= */
   .atf-grid { display: flex; flex-direction: column; }
-  .cta-panel { order: 1; }
-  .vsl-wrapper { order: 2; }
+  .vsl-wrapper { order: 1; }
+  .cta-panel { order: 2; }
 
   .cta-panel { position: static; padding: 20px 18px; border-radius: 12px; }
   .cta-panel h3 { font-size: 19px; }
