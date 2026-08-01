@@ -1043,8 +1043,12 @@ strong.white { color: var(--text); }
   .icp-callout span { font-size: 10px; padding: 5px 12px; letter-spacing: 0.5px; line-height: 1.4; }
   .hero-headline h1 { font-size: 26px; padding: 0 4px; line-height: 1.2; }
   .hero-sub { font-size: 14px; margin: 10px auto 14px; padding: 0 4px; line-height: 1.5; }
-  .hero-proof-quote { padding: 12px 14px; font-size: 13px; }
-  .hero-proof { margin-bottom: 24px; }
+  /* Hide redundant elements above the VSL on mobile.
+     ICP callout duplicates the headline promise.
+     Pre-VSL text testimonial duplicates the WhatsApp screenshot
+     that appears below the video in the atf-grid mobile order. */
+  .icp-callout { display: none; }
+  .hero-proof { display: none; }
   /* Mobile flex column with explicit ordering */
   .atf-grid { display: flex; flex-direction: column; }
   .vsl-wrapper          { order: 1; }
@@ -1706,6 +1710,18 @@ function toggleBump() {
   var bar = document.getElementById('stickyBar');
   var panel = document.querySelector('.cta-panel');
   if (!bar || !panel) return;
+
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  // On mobile: sticky bar is ALWAYS visible from the start.
+  // Standard best practice — the buy button should never be hidden on mobile.
+  if (isMobile) {
+    bar.style.transform = 'translateY(0)';
+    bar.style.opacity = '1';
+    return;
+  }
+
+  // Desktop: hide bar until user scrolls past the CTA panel (already visible).
   bar.style.transform = 'translateY(100%)';
   bar.style.opacity = '0';
   bar.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
