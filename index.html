@@ -11,23 +11,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0C0A09;
-  --surface: #1C1917;
-  --surface2: #292524;
-  --surface3: #3B3835;
-  --amber: #F59E0B;
-  --amber-dim: #92400E;
-  --amber-glow: rgba(245, 158, 11, 0.12);
-  --emerald: #34D399;
-  --emerald-dim: #065F46;
-  --rose: #FB7185;
-  --rose-dim: #9F1239;
-  --cyan: #22D3EE;
-  --cyan-dim: #0E7490;
-  --text: #F5F5F4;
-  --text-dim: #A8A29E;
+  /* LIGHT theme as default — Cashvertising readability win */
+  --bg: #FAFAF9;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F4;
+  --surface3: #E7E5E4;
+  --text: #1C1917;
+  --text-dim: #44403C;
   --text-muted: #78716C;
-  --violet: #A78BFA;
+  /* Amber — kept bright for buttons/fills, dim variant for text on white */
+  --amber: #F59E0B;
+  --amber-dim: #B45309;
+  --amber-text: #92400E;
+  --amber-glow: rgba(245, 158, 11, 0.2);
+  /* Emerald darkened for on-light contrast */
+  --emerald: #059669;
+  --emerald-dim: #065F46;
+  /* Rose darkened for on-light contrast */
+  --rose: #E11D48;
+  --rose-dim: #9F1239;
+  /* Cyan darkened for on-light contrast */
+  --cyan: #0891B2;
+  --cyan-dim: #0E7490;
+  --violet: #7C3AED;
+  /* RED for CTAs — action, urgency, impulse (Cashvertising) */
+  --red: #DC2626;
+  --red-hover: #B91C1C;
+  --red-glow: rgba(220, 38, 38, 0.28);
+  /* Legacy light-* vars kept for section-light class compatibility */
+  --light-bg: #FAFAF9;
+  --light-surface: #FFFFFF;
+  --light-surface2: #F5F5F4;
+  --light-border: #E7E5E4;
+  --light-text: #1C1917;
+  --light-text-dim: #44403C;
+  --light-text-muted: #78716C;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -53,21 +71,21 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--amber);
+  color: var(--amber-dim);
   margin-bottom: 14px;
 }
 .section-label::before {
   content: '';
   width: 20px;
   height: 2px;
-  background: var(--amber);
+  background: var(--amber-dim);
 }
 .divider {
   width: 100%;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--surface3), transparent);
 }
-em.gold { color: var(--amber); font-style: italic; }
+em.gold { color: var(--amber-dim); font-style: italic; }
 strong.white { color: var(--text); }
 /* ============================================
    STICKY NAV
@@ -76,9 +94,9 @@ strong.white { color: var(--text); }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  background: rgba(12, 10, 9, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--surface2);
+  border-bottom: 1px solid var(--surface3);
   padding: 10px 20px;
   display: flex;
   align-items: center;
@@ -88,12 +106,12 @@ strong.white { color: var(--text); }
 .nav-logo {
   font-family: 'Instrument Serif', serif;
   font-size: 18px;
-  color: var(--amber);
+  color: var(--amber-dim);
   text-decoration: none;
 }
 .nav-cta {
-  background: var(--amber);
-  color: var(--bg);
+  background: var(--red);
+  color: #fff;
   padding: 8px 18px;
   border-radius: 6px;
   font-size: 13px;
@@ -101,7 +119,9 @@ strong.white { color: var(--text); }
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: background 0.2s;
 }
+.nav-cta:hover { background: var(--red-hover); }
 /* ============================================
    STICKY MOBILE CTA BAR (always visible on mobile)
    ============================================ */
@@ -110,12 +130,12 @@ strong.white { color: var(--text); }
   position: fixed;
   bottom: 0; left: 0; right: 0;
   z-index: 999;
-  background: rgba(12, 10, 9, 0.96);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px);
-  border-top: 1px solid var(--amber);
+  border-top: 2px solid var(--red);
   padding: 10px 14px;
   padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-  box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
 }
 .sticky-mobile-cta .sticky-inner {
   display: flex;
@@ -129,18 +149,21 @@ strong.white { color: var(--text); }
 .sticky-mobile-cta .sticky-price .now {
   font-size: 22px;
   font-weight: 700;
-  color: var(--amber);
+  color: var(--red);
 }
 .sticky-mobile-cta .sticky-price .orig {
-  font-size: 12px;
-  color: var(--text-muted);
+  font-size: 13px;
+  color: var(--red);
   text-decoration: line-through;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  font-weight: 600;
   margin-left: 4px;
 }
 .sticky-mobile-cta .btn-sticky {
   flex: 1;
-  background: var(--amber);
-  color: var(--bg);
+  background: var(--red);
+  color: #fff;
   padding: 14px 12px;
   border: none;
   border-radius: 10px;
@@ -160,22 +183,30 @@ strong.white { color: var(--text); }
    MICRO URGENCY BAR
    ============================================ */
 .urgency-bar {
-  background: linear-gradient(90deg, var(--amber-dim), rgba(245,158,11,0.12));
-  border-bottom: 1px solid rgba(245,158,11,0.25);
-  padding: 8px 16px;
+  background: rgba(245, 158, 11, 0.14);
+  border-bottom: 2px solid var(--amber);
+  padding: 10px 16px;
   text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--amber);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber-text);
   margin-top: 48px;
   line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 .urgency-bar .spots {
   font-weight: 700;
-  background: var(--bg);
-  padding: 1px 8px;
+  background: var(--red);
+  color: #fff;
+  padding: 3px 12px;
   border-radius: 4px;
-  margin-left: 4px;
+  white-space: nowrap;
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.5px;
 }
 /* ============================================
    HERO / ATF — MOBILE FIRST
@@ -192,7 +223,7 @@ strong.white { color: var(--text); }
   text-align: center;
   margin-bottom: 10px;
 }
-.hero-headline em { color: var(--amber); font-style: italic; }
+.hero-headline em { color: var(--amber-dim); font-style: italic; }
 .hero-sub {
   text-align: center;
   font-size: 15px;
@@ -269,13 +300,16 @@ strong.white { color: var(--text); }
 .buy-price {
   font-size: 40px;
   font-weight: 700;
-  color: var(--amber);
+  color: var(--red);
   line-height: 1;
 }
 .buy-price-orig {
   font-size: 18px;
-  color: var(--text-muted);
+  color: var(--red);
   text-decoration: line-through;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  font-weight: 600;
 }
 .buy-price-note {
   font-size: 11px;
@@ -289,8 +323,8 @@ strong.white { color: var(--text); }
   align-items: center;
   justify-content: center;
   width: 100%;
-  background: var(--amber);
-  color: var(--bg);
+  background: var(--red);
+  color: #fff;
   padding: 16px;
   border: none;
   border-radius: 10px;
@@ -302,7 +336,10 @@ strong.white { color: var(--text); }
   text-align: center;
   text-decoration: none;
   min-height: 54px;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px var(--red-glow);
 }
+.btn-primary:hover { background: var(--red-hover); box-shadow: 0 6px 24px var(--red-glow); }
 .buy-trust {
   margin-top: 12px;
   font-size: 12px;
@@ -371,8 +408,10 @@ strong.white { color: var(--text); }
 }
 .order-bump .bump-orig {
   text-decoration: line-through;
-  color: var(--text-muted);
-  font-weight: 400;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  color: var(--red);
+  font-weight: 600;
   margin-left: 6px;
   font-size: 13px;
 }
@@ -417,8 +456,8 @@ strong.white { color: var(--text); }
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--amber);
-  border-bottom: 1px solid var(--surface2);
+  color: var(--amber-dim);
+  border-bottom: 1px solid var(--surface3);
 }
 .vsl-facade {
   position: relative;
@@ -478,7 +517,7 @@ strong.white { color: var(--text); }
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--amber);
+  color: var(--amber-dim);
   margin-bottom: 6px;
 }
 .sample-entry .sample-title {
@@ -540,6 +579,68 @@ strong.white { color: var(--text); }
   max-width: 360px;
   margin: 0 auto;
 }
+/* ============================================
+   LIGHT SECTIONS — for read-heavy copy (Cashvertising)
+   ============================================ */
+.section-light {
+  background: var(--light-bg);
+  color: var(--light-text);
+  border-top: 1px solid var(--light-border);
+  border-bottom: 1px solid var(--light-border);
+}
+.section-light h2,
+.section-light h3,
+.section-light h4 { color: var(--light-text); }
+.section-light p { color: var(--light-text-dim); }
+.section-light strong { color: var(--light-text); }
+.section-light em.gold { color: var(--amber-dim); }
+.section-light .section-label { color: var(--red); }
+.section-light .section-label::before { background: var(--red); }
+/* GAP section (Timing Problem) — light overrides */
+.section-light .gap-content h2 em { color: var(--amber-dim); }
+.section-light .highlight-pain {
+  background: rgba(220, 38, 38, 0.08);
+  border-left-color: var(--red);
+  color: var(--light-text);
+}
+.section-light .highlight-reveal {
+  background: rgba(245, 158, 11, 0.12);
+  border-left-color: var(--amber-dim);
+  color: var(--light-text);
+}
+/* NFY (Not For You) — light overrides */
+.section-light .nfy-box {
+  background: var(--light-surface);
+  border-color: var(--red);
+}
+.section-light .nfy-box h2 em { color: var(--red); }
+.section-light .nfy-intro { color: var(--light-text-dim); }
+.section-light .nfy-list li {
+  color: var(--light-text-dim);
+  border-bottom-color: var(--light-border);
+}
+.section-light .nfy-list li strong { color: var(--light-text); }
+.section-light .nfy-list li::before { color: var(--red); }
+.section-light .nfy-close {
+  color: var(--light-text-dim);
+  border-top-color: var(--light-border);
+}
+.section-light .nfy-close strong { color: var(--red); }
+/* INSIDE (What You Get) — light overrides */
+.section-light .inside-card {
+  background: var(--light-surface);
+  border-color: var(--light-border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.section-light .inside-card .role { color: var(--red); }
+.section-light .inside-card p { color: var(--light-text-dim); }
+.section-light .inside-header p { color: var(--light-text-dim); }
+/* FAQ — light overrides */
+.section-light .faq-item { border-bottom-color: var(--light-border); }
+.section-light .faq-q { color: var(--light-text); }
+.section-light .faq-q::after { color: var(--red); }
+.section-light .faq-a-inner { color: var(--light-text-dim); }
+.section-light .faq-a-inner strong { color: var(--light-text); }
 /* NOT FOR YOU */
 .nfy-section { padding: 48px 0; }
 .nfy-box {
@@ -653,8 +754,8 @@ strong.white { color: var(--text); }
 .offer-total .total-label { font-size: 13px; color: var(--text-dim); }
 .offer-total .total-label strong { color: var(--text); font-size: 15px; }
 .offer-total .total-price { display: flex; align-items: baseline; gap: 8px; }
-.offer-total .total-price .orig { font-size: 16px; color: var(--text-muted); text-decoration: line-through; }
-.offer-total .total-price .now { font-size: 32px; font-weight: 700; color: var(--amber); }
+.offer-total .total-price .orig { font-size: 16px; color: var(--red); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 2px; font-weight: 600; }
+.offer-total .total-price .now { font-size: 32px; font-weight: 700; color: var(--red); }
 .offer-box .btn-primary { font-size: 15px; padding: 16px; }
 .bonus-banner { margin-top: 18px; background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(34,211,238,0.08)); border: 1px dashed var(--amber); border-radius: 10px; padding: 16px; text-align: center; }
 .bonus-banner .bonus-tag { display: inline-block; background: var(--amber); color: var(--bg); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 6px; }
@@ -774,7 +875,7 @@ strong.white { color: var(--text); }
 </nav>
 <!-- ===== URGENCY BAR ===== -->
 <div class="urgency-bar" id="urgencyBar">
-  Free 1-on-1 Zoom call with me &middot; First 50 buyers only
+  <div>Free 1-on-1 Zoom call with me &middot; First 50 buyers only</div>
   <span class="spots"><span id="spotsCount">47</span>/50 left</span>
 </div>
 <!-- ===== HERO / ATF ===== -->
@@ -872,8 +973,8 @@ strong.white { color: var(--text); }
     </div>
   </div>
 </section>
-<!-- ===== GAP SECTION ===== -->
-<section class="gap-section">
+<!-- ===== GAP SECTION (LIGHT) ===== -->
+<section class="gap-section section-light">
   <div class="container">
     <div class="gap-content">
       <div class="section-label">The Real Problem</div>
@@ -892,8 +993,8 @@ strong.white { color: var(--text); }
 <div class="mid-cta">
   <a href="https://buy.stripe.com/14AdRbbd4b4Y8Do9Ueasg0c?utm_source=landing&amp;utm_medium=mid_gap" class="btn-primary" target="_blank" rel="noopener">Get The 2026 Playbook &mdash; $28 &rarr;</a>
 </div>
-<!-- ===== NOT FOR YOU ===== -->
-<section class="nfy-section">
+<!-- ===== NOT FOR YOU (LIGHT) ===== -->
+<section class="nfy-section section-light">
   <div class="container">
     <div class="nfy-box">
       <div class="section-label">Honest Filter</div>
@@ -909,8 +1010,8 @@ strong.white { color: var(--text); }
     </div>
   </div>
 </section>
-<!-- ===== WHAT'S INSIDE ===== -->
-<section class="inside-section">
+<!-- ===== WHAT'S INSIDE (LIGHT) ===== -->
+<section class="inside-section section-light">
   <div class="container">
     <div class="inside-header">
       <div class="section-label" style="justify-content:center;">What You Get</div>
@@ -988,8 +1089,8 @@ strong.white { color: var(--text); }
     </div>
   </div>
 </section>
-<!-- ===== FAQ ===== -->
-<section class="faq-section">
+<!-- ===== FAQ (LIGHT) ===== -->
+<section class="faq-section section-light">
   <div class="container">
     <div class="section-header">
       <div class="section-label" style="justify-content:center;">Common Questions</div>
