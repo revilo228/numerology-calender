@@ -314,6 +314,93 @@ strong.white { color: var(--text); }
   flex-wrap: wrap;
 }
 .buy-trust span { color: var(--emerald); }
+/* Order bump upsell */
+.order-bump {
+  background: rgba(34, 211, 238, 0.06);
+  border: 2px dashed var(--cyan);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 14px 0;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+.order-bump:hover { background: rgba(34, 211, 238, 0.1); }
+.order-bump-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.order-bump-check {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border: 2px solid var(--cyan);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.order-bump-check.checked { background: var(--cyan); }
+.order-bump-check.checked::after {
+  content: '\2713';
+  color: var(--bg);
+  font-size: 16px;
+  font-weight: 700;
+}
+.order-bump .bump-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.order-bump p {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.order-bump p em { color: var(--text); font-style: normal; font-weight: 700; }
+.order-bump .bump-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.order-bump .bump-orig {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-left: 6px;
+  font-size: 13px;
+}
+/* Payment logos */
+.payment-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--surface2);
+  flex-wrap: wrap;
+}
+.pay-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.pay-icon {
+  height: 20px;
+  width: auto;
+  opacity: 0.75;
+}
 /* VSL — demoted below the buy block */
 .vsl-section {
   padding: 20px 0 0;
@@ -694,11 +781,8 @@ strong.white { color: var(--text); }
 <section class="hero">
   <div class="container">
     <h1 class="hero-headline">
-      The Exact Days To <em>Ask For a Raise, Nail Your Interview, and Get Paid More.</em>
+      The Exact Days To Ask For a <em>Raise</em>, Nail Your Interview, and Get <em>Paid More.</em>
     </h1>
-    <p class="hero-sub">
-      365 days decoded. Same skills, same job, different day, different result.
-    </p>
     <div class="hero-atf-grid">
       <!-- WhatsApp proof — moved ATF -->
       <div class="hero-proof-block">
@@ -723,11 +807,46 @@ strong.white { color: var(--text); }
           <span class="buy-price-orig">$67</span>
         </div>
         <div class="buy-price-note">Cheaper than a Five Guys</div>
+        <!-- Order bump: Calendar + Personal Reading upsell -->
+        <div class="order-bump" onclick="toggleBump()">
+          <div class="order-bump-header">
+            <div class="order-bump-check" id="bumpCheck"></div>
+            <div class="bump-label">Add Personal Reading</div>
+          </div>
+          <p>Calendar = universal energy (60%). Reading layers YOUR Life Path for the other 40%. Map <em>plus</em> your coordinates.</p>
+          <div class="bump-price">+ $49 <span class="bump-orig">$77</span></div>
+        </div>
         <a href="https://buy.stripe.com/14AdRbbd4b4Y8Do9Ueasg0c?utm_source=landing&amp;utm_medium=atf_buy" class="btn-primary" id="atfCta" target="_blank" rel="noopener">
           Get The 2026 Playbook &rarr;
         </a>
         <div class="buy-trust">
           <span>&#128737;</span> 30-day money-back &middot; Instant delivery
+        </div>
+        <!-- Payment logos for trust -->
+        <div class="payment-logos">
+          <div class="pay-label">Secure checkout</div>
+          <svg class="pay-icon" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg" aria-label="Visa">
+            <rect width="48" height="32" rx="4" fill="#1A1F71"/>
+            <path d="M20.4 21h-3.1l1.9-11h3.1l-1.9 11zm10.7-10.7c-.6-.2-1.6-.5-2.7-.5-3 0-5.2 1.6-5.2 3.9 0 1.7 1.5 2.6 2.7 3.2 1.2.6 1.6.9 1.6 1.4 0 .8-.9 1.1-1.8 1.1-1.2 0-1.8-.2-2.8-.6l-.4-.2-.4 2.5c.7.3 2 .6 3.4.6 3.2 0 5.3-1.6 5.3-4 0-1.3-.8-2.3-2.5-3.1-1-.5-1.7-.9-1.7-1.4 0-.5.5-1 1.7-1 1 0 1.7.2 2.2.4l.3.1.4-2.4zm7.5-.3h-2.4c-.7 0-1.3.2-1.6 1L30 21h3.2s.5-1.4.6-1.7h3.9c.1.4.4 1.7.4 1.7h2.8l-2.3-11zm-3.7 7.1c.3-.7 1.2-3.4 1.2-3.4l.4-1.2.2 1.1s.6 2.8.7 3.4l-2.5.1zM14.7 10L11.7 17.5l-.3-1.6c-.6-1.8-2.3-3.8-4.2-4.8l2.8 9.9h3.3l4.8-11h-3.4z" fill="white"/>
+          </svg>
+          <svg class="pay-icon" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard">
+            <rect width="48" height="32" rx="4" fill="#000"/>
+            <circle cx="19" cy="16" r="8" fill="#EB001B"/>
+            <circle cx="29" cy="16" r="8" fill="#F79E1B"/>
+            <path d="M24 10a8 8 0 0 0 0 12 8 8 0 0 0 0-12z" fill="#FF5F00"/>
+          </svg>
+          <svg class="pay-icon" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg" aria-label="American Express">
+            <rect width="48" height="32" rx="4" fill="#006FCF"/>
+            <text x="24" y="20" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="white" text-anchor="middle">AMEX</text>
+          </svg>
+          <svg class="pay-icon" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg" aria-label="Apple Pay">
+            <rect width="48" height="32" rx="4" fill="#000"/>
+            <text x="24" y="20" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="white" text-anchor="middle">Pay</text>
+          </svg>
+          <svg class="pay-icon" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg" aria-label="Google Pay">
+            <rect width="48" height="32" rx="4" fill="#fff" stroke="#DADCE0"/>
+            <text x="24" y="20" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#5F6368" text-anchor="middle">G Pay</text>
+          </svg>
         </div>
       </div>
     </div>
@@ -913,6 +1032,33 @@ var spotsRemaining = 47;
   if (spotsRemaining <= 0) { if (bar) bar.style.display = 'none'; }
   else if (el) { el.textContent = spotsRemaining; }
 })();
+/* Order bump toggle — switches CTA URL + text between calendar-only and calendar+reading bundle */
+function toggleBump() {
+  var check = document.getElementById('bumpCheck');
+  check.classList.toggle('checked');
+  var atfCta = document.getElementById('atfCta');
+  var offerCta = document.getElementById('offerCta');
+  var isChecked = check.classList.contains('checked');
+  if (isChecked) {
+    if (atfCta) {
+      atfCta.textContent = 'Get Playbook + Reading →';
+      atfCta.href = 'https://buy.stripe.com/7sYfZjftkc92bPA5DYasg0d?utm_source=landing&utm_medium=atf_buy&bump=on';
+    }
+    if (offerCta) {
+      offerCta.textContent = 'Get Playbook + Reading →';
+      offerCta.href = 'https://buy.stripe.com/7sYfZjftkc92bPA5DYasg0d?utm_source=landing&utm_medium=offer_stack&bump=on';
+    }
+  } else {
+    if (atfCta) {
+      atfCta.textContent = 'Get The 2026 Playbook →';
+      atfCta.href = 'https://buy.stripe.com/14AdRbbd4b4Y8Do9Ueasg0c?utm_source=landing&utm_medium=atf_buy';
+    }
+    if (offerCta) {
+      offerCta.textContent = 'Get The 2026 Playbook →';
+      offerCta.href = 'https://buy.stripe.com/14AdRbbd4b4Y8Do9Ueasg0c?utm_source=landing&utm_medium=offer_stack';
+    }
+  }
+}
 /* Wistia lazy load */
 function loadWistia() {
   var facade = document.getElementById('vslFacade');
